@@ -20,6 +20,7 @@ __pycache__/
 htmlcov/
 
 # Local editor settings and environment credentials.
+/AGENTS.md
 /.idea/
 /.vscode/
 .env
