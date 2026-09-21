@@ -1,0 +1,144 @@
+{
+  "model_name": "Qwen/Qwen3-0.6B-Base",
+  "adapter_path": "checkpoint/lora_r16_seed42_baseline_v1/adapter_epoch_1.pt",
+  "adapter_metadata": {
+    "base_model_name": "Qwen/Qwen3-0.6B-Base",
+    "rank": 16,
+    "alpha": 32,
+    "target_names": [
+      "q_proj",
+      "v_proj"
+    ]
+  },
+  "data_dir": "data/alpaca_seed42_train2000_val200",
+  "validation_samples": 200,
+  "validation_max_length": 512,
+  "label_policy": "answer_only",
+  "generation": {
+    "max_input_length": 256,
+    "max_new_tokens": 128,
+    "do_sample": false
+  },
+  "prompts": [
+    {
+      "id": "sky_explanation",
+      "category": "explanation",
+      "instruction": "Explain why the sky appears blue in simple terms.",
+      "input": "",
+      "review_criteria": [
+        "Explains that air scatters shorter-wavelength blue light more strongly than red light.",
+        "Uses accessible language and completes the explanation without repetition."
+      ]
+    },
+    {
+      "id": "library_summary",
+      "category": "summarization",
+      "instruction": "Summarize the following announcement in one sentence. Include the new closing time and when the change begins.",
+      "input": "The town library currently closes at 5 p.m. Starting next Monday, it will close at 7 p.m. on weekdays. Weekend opening hours will remain unchanged.",
+      "review_criteria": [
+        "States that weekday closing changes to 7 p.m. starting next Monday.",
+        "Uses exactly one sentence and does not invent details."
+      ]
+    },
+    {
+      "id": "polite_rewrite",
+      "category": "rewriting",
+      "instruction": "Rewrite this message as a polite professional request. Keep the deadline and do not add new requirements.",
+      "input": "Send me the revised report by Friday. The numbers in the current version are wrong.",
+      "review_criteria": [
+        "Keeps the request for a revised report by Friday and the need to correct the numbers.",
+        "Uses a polite tone without inventing additional work."
+      ]
+    },
+    {
+      "id": "meeting_extraction",
+      "category": "information_extraction",
+      "instruction": "Extract the organizer and room. Return only a JSON object with the keys organizer and room.",
+      "input": "Mira Chen is organizing the project review. The meeting is in room B204 on Tuesday at 10 a.m.",
+      "review_criteria": [
+        "Returns valid JSON with exactly the keys organizer and room.",
+        "Uses organizer Mira Chen and room B204, with no surrounding explanation."
+      ]
+    },
+    {
+      "id": "pencil_arithmetic",
+      "category": "arithmetic",
+      "instruction": "Solve the problem and explain your calculation in one short sentence.",
+      "input": "Nora has 3 boxes with 4 pencils in each box. She gives away 5 pencils. How many pencils does she have left?",
+      "review_criteria": [
+        "Gives the answer 7 using 3 times 4 minus 5.",
+        "Uses one short sentence."
+      ]
+    },
+    {
+      "id": "packing_list",
+      "category": "format_following",
+      "instruction": "Turn the items into a numbered list with exactly three lines. Preserve their order and add no introduction or conclusion.",
+      "input": "water bottle; notebook; rain jacket",
+      "review_criteria": [
+        "Returns three numbered lines in the order water bottle, notebook, rain jacket.",
+        "Adds no extra items or surrounding text."
+      ]
+    }
+  ],
+  "base": {
+    "loss": 1.4025100727785604,
+    "perplexity": 4.065391599411806,
+    "samples": [
+      {
+        "id": "sky_explanation",
+        "response": "The sky appears blue because of a process called **Rayleigh scattering**. When sunlight enters the Earth's atmosphere, it interacts with molecules and tiny particles in the air. Sunlight is made up of different colors, each with its own wavelength. Blue light has a shorter wavelength than other colors, so it is scattered in all directions by the molecules in the air. This scattering is more intense for shorter wavelengths, which is why we see the sky as blue during the day. At sunrise and sunset, the sun is lower in the sky, and the light has to pass through more of the atmosphere. As a result, the shorter wavelengths ("
+      },
+      {
+        "id": "library_summary",
+        "response": "The town library will now close at 7 p.m. on weekdays and weekend hours will remain the same."
+      },
+      {
+        "id": "polite_rewrite",
+        "response": "Thank you for your prompt attention to the issue. We appreciate your prompt response and will ensure that the revised report is submitted by Friday. Please let us know if there are any additional details or requirements you need to provide to facilitate the process. We look forward to your feedback and will be happy to assist further."
+      },
+      {
+        "id": "meeting_extraction",
+        "response": "```json\n{\n  \"organizer\": \"Mira Chen\",\n  \"room\": \"B204\"\n}\n```"
+      },
+      {
+        "id": "pencil_arithmetic",
+        "response": "Nora has 12 pencils in total. She gives away 5 pencils, so she has 12 - 5 = 7 pencils left."
+      },
+      {
+        "id": "packing_list",
+        "response": "1. Water bottle\n2. Notebook\n3. Rain jacket"
+      }
+    ]
+  },
+  "lora": {
+    "loss": 1.273447369439457,
+    "perplexity": 3.5731493202127664,
+    "samples": [
+      {
+        "id": "sky_explanation",
+        "response": "The sky appears blue because of a process called Rayleigh scattering. When sunlight enters the Earth's atmosphere, it is scattered in all directions by the molecules and tiny particles in the air. This scattering of light causes the blue color to be scattered more than other colors, making the sky appear blue."
+      },
+      {
+        "id": "library_summary",
+        "response": "The town library will now close at 7 p.m. on weekdays and weekend hours will remain the same."
+      },
+      {
+        "id": "polite_rewrite",
+        "response": "Dear [Recipient],\n\nI hope this message finds you well. I am writing to request that you send me the revised report by Friday. I would appreciate it if you could provide the updated version of the report, as the numbers in the current version are incorrect. Please let me know if there are any additional requirements or changes that need to be made.\n\nThank you for your prompt attention to this matter. I look forward to your response.\n\nBest regards,\n[Your Name]"
+      },
+      {
+        "id": "meeting_extraction",
+        "response": "{\n  \"organizer\": \"Mira Chen\",\n  \"room\": \"B204\"\n}"
+      },
+      {
+        "id": "pencil_arithmetic",
+        "response": "Nora has 12 pencils in total, and after giving away 5, she has 7 pencils left."
+      },
+      {
+        "id": "packing_list",
+        "response": "1. Water bottle\n2. Notebook\n3. Rain jacket"
+      }
+    ]
+  }
+}

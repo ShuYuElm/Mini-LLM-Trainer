@@ -1,0 +1,23 @@
+{
+  "status": "completed",
+  "initial_validation": {
+    "loss": 1.6708821270425123,
+    "perplexity": 5.316855871483982
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 1.5289745947793125,
+      "validation_loss": 1.377973325470331,
+      "validation_perplexity": 3.9668539533710407,
+      "optimizer_updates": 250,
+      "global_step": 250,
+      "train_seconds": 497.13007800000196,
+      "peak_allocated_gib": 3.5414552688598633,
+      "peak_reserved_gib": 4.427734375,
+      "learning_rate_after_epoch": 0.0,
+      "checkpoint_path": "checkpoint/lora_r4_seed42_baseline_v1/epoch_1.pt",
+      "adapter_path": "checkpoint/lora_r4_seed42_baseline_v1/adapter_epoch_1.pt"
+    }
+  ]
+}

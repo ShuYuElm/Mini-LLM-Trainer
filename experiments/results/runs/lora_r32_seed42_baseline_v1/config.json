@@ -1,0 +1,30 @@
+{
+  "model_name": "Qwen/Qwen3-0.6B-Base",
+  "data_dir": "data/alpaca_seed42_train2000_val200",
+  "seed": 42,
+  "train_samples": 2000,
+  "validation_samples": 200,
+  "max_length": 512,
+  "label_policy": "full_sequence",
+  "batch_size": 1,
+  "gradient_accumulation_steps": 8,
+  "num_epochs": 1,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.01,
+  "optimizer": "AdamW",
+  "scheduler": "linear_with_warmup",
+  "warmup_ratio": 0.1,
+  "num_training_steps": 250,
+  "num_warmup_steps": 25,
+  "max_grad_norm": 1,
+  "lora_rank": 32,
+  "lora_alpha": 64,
+  "lora_target_names": [
+    "q_proj",
+    "v_proj"
+  ],
+  "trainable_parameters": 4587520,
+  "dtype": "torch.bfloat16",
+  "device": "cuda",
+  "torch_version": "2.10.0+cu126"
+}

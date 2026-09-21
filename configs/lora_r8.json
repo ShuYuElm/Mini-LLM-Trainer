@@ -1,0 +1,19 @@
+{
+  "model_name": "Qwen/Qwen3-0.6B-Base",
+  "model_cache_dir": "model",
+  "data_dir": "data/alpaca_seed42_train2000_val200",
+  "checkpoint_dir": "checkpoint/lora_r8_seed42_config_v1",
+  "resume_path": null,
+  "seed": 42,
+  "num_epochs": 1,
+  "batch_size": 1,
+  "gradient_accumulation_steps": 8,
+  "warmup_ratio": 0.1,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.01,
+  "max_length": 512,
+  "max_grad_norm": 1.0,
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "lora_target_names": ["q_proj", "v_proj"]
+}

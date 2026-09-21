@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "source_files_relative_to_source_dir": [
+    {
+      "source": "lora_r4_seed42_baseline_v1/config.json",
+      "sha256": "afdf84a042861b73694e14e2b3920a6f751b4b8e2acb9cf46efa650bbe27072c",
+      "exported_sha256": "93360082d089cdcbbcf808d8e1510c1527d43a51e7a21fbd70255d7ac7a7a3b9"
+    },
+    {
+      "source": "lora_r4_seed42_baseline_v1/metrics.json",
+      "sha256": "b331e0107a5a88f45de7a8effd2c7a4a7cee8c2882d8b6c2fc8a9df22cfbc9e9",
+      "exported_sha256": "4d66037535679e41d5e31dfd0afc74483e261db5fcb736adf826a5cc9c0923d0"
+    },
+    {
+      "source": "lora_r4_seed42_baseline_v1/evaluation.json",
+      "sha256": "f872f83a5ea4ab1f764c25676084c6126ddef91ccb118542d55c3de8d7c48063",
+      "exported_sha256": "48d80ff3cc543822ecd82383e5ea7e32386773bee3014426da2737814fd02ffa"
+    },
+    {
+      "source": "lora_r4_seed42_baseline_v1/evaluation_answer_only.json",
+      "sha256": "f82af6f5980321ea8dccfb190da1598d89ba3d9b9681de2b670effb917d055a5",
+      "exported_sha256": "a931160794fb3928badd0100a8330b8b148420c73d36d10477621c575377b81d"
+    },
+    {
+      "source": "lora_r8_seed42_baseline_v1/config.json",
+      "sha256": "2fb94f374311a89ebdcab04df64a470e7d8390b95173551124ac36aac5ce2197",
+      "exported_sha256": "5b8d9a265a9b9f8fd810295de068938b4917406a8860fffadf4115de951acb09"
+    },
+    {
+      "source": "lora_r8_seed42_baseline_v1/metrics.json",
+      "sha256": "493f5c212600cd1a71ec2e6f0bc57a31a2cc66f9b0ed2976d35e3581d8ab1572",
+      "exported_sha256": "1b6d2b472c91218e810b380527e2d9e41d089358e3e68f89aacc02307f2ef4a4"
+    },
+    {
+      "source": "lora_r8_seed42_baseline_v1/evaluation.json",
+      "sha256": "0705494d77e58b1f57f3ad97a439e11a5ab95b1f41d5fbe3d812fa1f8eef0f00",
+      "exported_sha256": "4b8a678726c0ce9fe80318b12a6469e87c730f28e65efc5cce88650e12a8dbac"
+    },
+    {
+      "source": "lora_r8_seed42_baseline_v1/evaluation_answer_only.json",
+      "sha256": "5bbe72dce7dcd3c4afe9f64c3df5e998178b4d312dd8d203ad0eb098904267ab",
+      "exported_sha256": "1980c79e5070fba1fd64b7d569f2766d3cff3700628cc95200c7552d5fb54bb5"
+    },
+    {
+      "source": "lora_r16_seed42_baseline_v1/config.json",
+      "sha256": "e4bb3d036978e3a06894046fdf3a2d1c1da64d9beb35050a7666aafefeca353a",
+      "exported_sha256": "6c724a1b37b1b87720deab9d4bba7a634a68224279d669cf6bbbc8575fdf5eec"
+    },
+    {
+      "source": "lora_r16_seed42_baseline_v1/metrics.json",
+      "sha256": "e1794465b00355485d1de3f6987165b5d73bbbe1fadd883bf5d27d1e9a14856e",
+      "exported_sha256": "f75d52829a5a6d70e23c001df0e98268bd5741c7774473839d60a912f388a96a"
+    },
+    {
+      "source": "lora_r16_seed42_baseline_v1/evaluation.json",
+      "sha256": "16fbfba185ec7d5365b97cc6584cc96510b3553bc7653e295ae343d3a188a4cb",
+      "exported_sha256": "b43e858871a9ef30ffe932cbb80b5dd8b0019089b3c82973bb4f67ebe45ef26c"
+    },
+    {
+      "source": "lora_r16_seed42_baseline_v1/evaluation_answer_only.json",
+      "sha256": "ff62d5bd8cd3f8c12479f54d828d763a6557bb8bd702dafacafe5214619f7191",
+      "exported_sha256": "fb9bfb7ad241d2f39c6318bcd22e805de38a35f18a80ba7ab52149d769346376"
+    },
+    {
+      "source": "lora_r32_seed42_baseline_v1/config.json",
+      "sha256": "70bef7c42374fb811759849b8b07b31cd14026a115e45811b9ccd946056421a6",
+      "exported_sha256": "06b58eeb4bee88edcd20fbb2dd43848c866d408eefabc988de5890c7dfc3dcf0"
+    },
+    {
+      "source": "lora_r32_seed42_baseline_v1/metrics.json",
+      "sha256": "c6738766ce776592627ecae44366eccb1fa04435cf8877336f9ce14e5e63bc91",
+      "exported_sha256": "ba5ec61c2807fdb4d27d5d98b203d588c91aa34099ef3b4b2c3fccae21e5b830"
+    },
+    {
+      "source": "lora_r32_seed42_baseline_v1/evaluation.json",
+      "sha256": "c268051cb5e1db4d9eb63756a51cff488fc114fe215c3baa492377ce84e9a6af",
+      "exported_sha256": "d48aa95c8d15becfb54865d1571660fb328453b36b8b1e6cb01aa1c0e7620982"
+    },
+    {
+      "source": "lora_r32_seed42_baseline_v1/evaluation_answer_only.json",
+      "sha256": "96e157a30e4478a59fbc055336d61212b7239c21c44efa384951b9e991ad63b6",
+      "exported_sha256": "7b2f16229719da70055e441db7719f6df994fb76e5842513fee97ecd4b199c5d"
+    }
+  ],
+  "path_normalization": "data_dir, adapter_path, checkpoint_path are project-relative; all metrics and text are preserved",
+  "limitations": [
+    "One seed (42), 2000 training and 200 validation samples, one epoch.",
+    "All adapters were trained with full-sequence labels; answer-only is an evaluation mask.",
+    "Compare loss within the same label policy; the two masks have different target sets.",
+    "Reference-answer loss is not a free-generation quality score; six prompts are illustrative.",
+    "Timing is a single observation per rank, with uncontrolled machine-load variation.",
+    "Training time excludes model loading, validation, and checkpoint serialization.",
+    "Base training time and memory were not measured and are blank in the CSV.",
+    "Source model/data revisions were not pinned. No weights or dataset are included."
+  ]
+}

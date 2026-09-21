@@ -1,0 +1,62 @@
+[
+  {
+    "id": "sky_explanation",
+    "category": "explanation",
+    "instruction": "Explain why the sky appears blue in simple terms.",
+    "input": "",
+    "review_criteria": [
+      "Explains that air scatters shorter-wavelength blue light more strongly than red light.",
+      "Uses accessible language and completes the explanation without repetition."
+    ]
+  },
+  {
+    "id": "library_summary",
+    "category": "summarization",
+    "instruction": "Summarize the following announcement in one sentence. Include the new closing time and when the change begins.",
+    "input": "The town library currently closes at 5 p.m. Starting next Monday, it will close at 7 p.m. on weekdays. Weekend opening hours will remain unchanged.",
+    "review_criteria": [
+      "States that weekday closing changes to 7 p.m. starting next Monday.",
+      "Uses exactly one sentence and does not invent details."
+    ]
+  },
+  {
+    "id": "polite_rewrite",
+    "category": "rewriting",
+    "instruction": "Rewrite this message as a polite professional request. Keep the deadline and do not add new requirements.",
+    "input": "Send me the revised report by Friday. The numbers in the current version are wrong.",
+    "review_criteria": [
+      "Keeps the request for a revised report by Friday and the need to correct the numbers.",
+      "Uses a polite tone without inventing additional work."
+    ]
+  },
+  {
+    "id": "meeting_extraction",
+    "category": "information_extraction",
+    "instruction": "Extract the organizer and room. Return only a JSON object with the keys organizer and room.",
+    "input": "Mira Chen is organizing the project review. The meeting is in room B204 on Tuesday at 10 a.m.",
+    "review_criteria": [
+      "Returns valid JSON with exactly the keys organizer and room.",
+      "Uses organizer Mira Chen and room B204, with no surrounding explanation."
+    ]
+  },
+  {
+    "id": "pencil_arithmetic",
+    "category": "arithmetic",
+    "instruction": "Solve the problem and explain your calculation in one short sentence.",
+    "input": "Nora has 3 boxes with 4 pencils in each box. She gives away 5 pencils. How many pencils does she have left?",
+    "review_criteria": [
+      "Gives the answer 7 using 3 times 4 minus 5.",
+      "Uses one short sentence."
+    ]
+  },
+  {
+    "id": "packing_list",
+    "category": "format_following",
+    "instruction": "Turn the items into a numbered list with exactly three lines. Preserve their order and add no introduction or conclusion.",
+    "input": "water bottle; notebook; rain jacket",
+    "review_criteria": [
+      "Returns three numbered lines in the order water bottle, notebook, rain jacket.",
+      "Adds no extra items or surrounding text."
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+# Local model weights, datasets, and training artifacts.
+/model/
+/checkpoint/
+/data/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Python environments and generated caches.
+/.venv/
+/venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.coverage
+htmlcov/
+
+# Local editor settings and environment credentials.
+/.idea/
+/.vscode/
+.env
+.env.*
+!.env.example
+
+# Optional regenerated result copies; keep experiments/results/ tracked.
+/experiments/results_rebuilt/
+.DS_Store
+Thumbs.db

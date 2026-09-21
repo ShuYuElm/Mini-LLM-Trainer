@@ -1,0 +1,18 @@
+# Versions verified in the project environment on 2026-09-21 (Python 3.13.2).
+# Install the CUDA 12.6 torch wheel first; see README.md.
+# This pins project dependencies, not every transitive dependency.
+torch==2.10.0
+transformers==5.16.1
+datasets==5.0.1
+numpy==2.3.3
+huggingface-hub==1.28.0
+
+# Manual-versus-PEFT comparison scripts.
+peft==0.21.0
+accelerate==1.15.0
+
+# Local regression tests.
+pytest==9.1.0
+
+# Offline experiment result plots (summarize_results.py).
+matplotlib==3.10.7
