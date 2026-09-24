@@ -1,0 +1,862 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "quality_eval_v1",
+  "language": "en",
+  "provenance": "40 synthetic prompts and reference criteria authored by the coding assistant for this project; not copied from an external benchmark. No outputs from the target models were generated for these prompts before writing the criteria.",
+  "purpose": "Held-out comparison of Base, LoRA r=8, and LoRA r=32; not for training or tuning.",
+  "generation_plan": {
+    "max_input_length": 256,
+    "max_new_tokens": 128,
+    "do_sample": false
+  },
+  "rubric": {
+    "correctness": {
+      "0": "Wrong main answer, contradiction, or unusable response.",
+      "1": "Partly correct but includes a factual or reasoning error.",
+      "2": "All stated task-relevant facts and reasoning are correct."
+    },
+    "completeness": {
+      "0": "Misses the main requested information or action.",
+      "1": "Includes the main information but misses at least one required fact.",
+      "2": "Covers every required fact or action."
+    },
+    "format_compliance": {
+      "0": "Substantially violates the required output form.",
+      "1": "Mostly follows the form with a minor violation.",
+      "2": "Satisfies every explicit output-format requirement."
+    },
+    "no_unsupported_additions": {
+      "0": "Adds a material invented fact, new task, promise, or changed intent.",
+      "1": "Adds minor unsupported or unnecessary content without changing the main answer.",
+      "2": "Adds no unsupported facts or unrequested requirements."
+    }
+  },
+  "review_protocol": [
+    "Freeze the canonical prompt-set hash and review criteria before generating target-model outputs.",
+    "Pass only instruction and input to the model; never include references, expected values, or scoring criteria.",
+    "Use identical greedy generation settings for all three models and retain all outputs, including failures.",
+    "Hide model identities and randomize answer order before subjective scoring; keep the mapping separate.",
+    "Record four integer scores from 0 to 2 and a short rationale for each answer.",
+    "Deterministic checks measure their stated property only and do not replace the four human ratings.",
+    "Accept semantically equivalent wording for human-scored tasks; references are examples, not exact-match targets.",
+    "Report each category separately and counts with denominators; do not equate loss changes with quality gains.",
+    "If prompts or criteria must change after seeing outputs, version the set and disclose that it became development data."
+  ],
+  "prompts": [
+    {
+      "id": "sum_workshop",
+      "category": "summarization",
+      "instruction": "Write a single-sentence summary stating the revised workshop date, venue, and registration deadline.",
+      "input": "The mapmaking workshop was planned for April 11 in Studio 2. It will now take place on April 18 in Studio 5. Registration closes on April 14. The fee remains unchanged.",
+      "reference_answer": "The mapmaking workshop will be held on April 18 in Studio 5, with registration closing on April 14.",
+      "required_facts": [
+        "April 18",
+        "Studio 5",
+        "Registration closes April 14"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No invented dates, locations, fees, or consequences."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "sum_deliveries",
+      "category": "summarization",
+      "instruction": "Summarize the delivery change in one sentence, including the affected area, closure period, and temporary pickup point.",
+      "input": "Deliveries to Cedar Court are paused from June 3 through June 6 while the access road is resurfaced. During that period, residents can collect packages at the north depot. Deliveries elsewhere continue normally.",
+      "reference_answer": "Cedar Court deliveries are paused June 3 through June 6, with packages available at the north depot.",
+      "required_facts": [
+        "Cedar Court deliveries paused",
+        "June 3 through June 6",
+        "Pickup at north depot"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No invented dates, locations, fees, or consequences."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "sum_membership",
+      "category": "summarization",
+      "instruction": "In one sentence, report the new monthly price, its start date, and which members are exempt.",
+      "input": "Starting August 1, monthly membership will cost 28 dollars instead of 24 dollars. Members on annual plans keep their existing price until renewal. Opening hours will not change.",
+      "reference_answer": "Monthly membership rises to 28 dollars on August 1, while annual-plan members keep their existing price until renewal.",
+      "required_facts": [
+        "28 dollars per month",
+        "Starts August 1",
+        "Annual plans retain current price until renewal"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No invented dates, locations, fees, or consequences."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "sum_water",
+      "category": "summarization",
+      "instruction": "Produce a two-sentence summary covering the affected buildings, interruption time, and drinking-water arrangement.",
+      "input": "Water will be unavailable in Buildings F and H on May 9 from 10 a.m. to 1 p.m. Building G is unaffected. Free bottled drinking water will be available in the courtyard during the interruption.",
+      "reference_answer": "Buildings F and H will have no water on May 9 from 10 a.m. to 1 p.m. Free bottled drinking water will be available in the courtyard.",
+      "required_facts": [
+        "Buildings F and H",
+        "May 9, 10 a.m. to 1 p.m.",
+        "Free bottled drinking water in courtyard"
+      ],
+      "format_requirement": "Exactly two sentences, no heading.",
+      "prohibited_additions": [
+        "No invented dates, locations, fees, or consequences."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "sum_bus",
+      "category": "summarization",
+      "instruction": "Summarize this notice in one sentence, preserving the route number, detour dates, and temporary stop.",
+      "input": "Route 26 will bypass Harbor Street from September 12 through September 15 because of bridge inspections. Passengers should use the temporary stop outside the aquarium. The first and last bus times are unchanged.",
+      "reference_answer": "Route 26 bypasses Harbor Street September 12 through September 15, with a temporary stop outside the aquarium.",
+      "required_facts": [
+        "Route 26 bypasses Harbor Street",
+        "September 12 through September 15",
+        "Temporary stop outside aquarium"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No invented dates, locations, fees, or consequences."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "sum_upload",
+      "category": "summarization",
+      "instruction": "Write one sentence explaining the two deadlines and the consequence of missing the second one.",
+      "input": "Teams must upload a draft by October 4. Corrections are accepted until October 7. Entries without a final version by October 7 will not be reviewed. File naming instructions are unchanged.",
+      "reference_answer": "Teams must upload a draft by October 4 and a final version by October 7, or their entries will not be reviewed.",
+      "required_facts": [
+        "Draft by October 4",
+        "Final version/corrections by October 7",
+        "No review without final version by October 7"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No invented dates, locations, fees, or consequences."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "sum_exhibit",
+      "category": "summarization",
+      "instruction": "Summarize the exhibition update in one sentence, including what stays open and how ticket holders can get refunds.",
+      "input": "The mineral gallery will be closed on November 8 and 9 for lighting repairs. The fossil gallery stays open. Mineral-gallery ticket holders can request a refund by replying to their booking email before November 12.",
+      "reference_answer": "The mineral gallery closes November 8 and 9 while the fossil gallery stays open, and affected ticket holders can request refunds by replying to their booking email before November 12.",
+      "required_facts": [
+        "Mineral gallery closed November 8 and 9",
+        "Fossil gallery open",
+        "Refund by replying to booking email before November 12"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No invented dates, locations, fees, or consequences."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "sum_mentoring",
+      "category": "summarization",
+      "instruction": "Give a one-sentence summary identifying eligibility, application deadline, and program start date.",
+      "input": "The mentoring program is open to employees who joined within the last six months. Applications close on February 16, and the first session is March 2. Participation is optional and does not affect performance reviews.",
+      "reference_answer": "Employees who joined within the last six months may apply for the mentoring program by February 16, with the first session on March 2.",
+      "required_facts": [
+        "Joined within last six months",
+        "Applications close February 16",
+        "First session March 2"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No invented dates, locations, fees, or consequences."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "rewrite_invoice",
+      "category": "rewriting",
+      "instruction": "Rewrite this as a polite professional request in one sentence. Preserve the error, requested action, and deadline.",
+      "input": "You put the wrong purchase order number on invoice K-314. Send a corrected invoice by Tuesday noon.",
+      "reference_answer": "Could you please correct the purchase order number on invoice K-314 and send the revised invoice by Tuesday noon?",
+      "required_facts": [
+        "Invoice K-314 has wrong purchase order number",
+        "Request corrected invoice",
+        "Tuesday noon"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No new deadlines, tasks, promises, or follow-up questions beyond the request.",
+        "Do not reverse sender and recipient roles."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "rewrite_decline",
+      "category": "rewriting",
+      "instruction": "Rewrite this refusal courteously in two sentences, retaining the reason and the alternative date without accepting the original date.",
+      "input": "I cannot lead the session on June 14 because I am covering the service desk. I can lead it on June 21.",
+      "reference_answer": "I am unable to lead the session on June 14 because I will be covering the service desk. I would be available to lead it on June 21.",
+      "required_facts": [
+        "Cannot lead June 14",
+        "Covering service desk",
+        "Available June 21"
+      ],
+      "format_requirement": "Exactly two sentences, no heading.",
+      "prohibited_additions": [
+        "No new deadlines, tasks, promises, or follow-up questions beyond the request.",
+        "Do not reverse sender and recipient roles."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "rewrite_status",
+      "category": "rewriting",
+      "instruction": "Make this request friendly and professional in one sentence, keeping both requested items and the time limit.",
+      "input": "Tell me whether the prototype passed the drop test. Send the test log too. I need both before 3 p.m. today.",
+      "reference_answer": "Could you please confirm whether the prototype passed the drop test and send the test log before 3 p.m. today?",
+      "required_facts": [
+        "Ask whether prototype passed drop test",
+        "Request test log",
+        "Before 3 p.m. today"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No new deadlines, tasks, promises, or follow-up questions beyond the request.",
+        "Do not reverse sender and recipient roles."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "rewrite_refund",
+      "category": "rewriting",
+      "instruction": "Rewrite the message politely in two sentences. Keep the damaged quantity and the requested remedy; do not request replacements.",
+      "input": "Three of the eight mugs arrived cracked. I want a refund for those three mugs.",
+      "reference_answer": "Three of the eight mugs arrived cracked. Could you please refund the cost of those three mugs?",
+      "required_facts": [
+        "Three of eight mugs cracked",
+        "Refund for three damaged mugs",
+        "No replacement request"
+      ],
+      "format_requirement": "Exactly two sentences, no heading.",
+      "prohibited_additions": [
+        "No new deadlines, tasks, promises, or follow-up questions beyond the request.",
+        "Do not reverse sender and recipient roles."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "rewrite_access",
+      "category": "rewriting",
+      "instruction": "Rewrite this as one polite sentence, preserving who needs access, the access level, and the duration.",
+      "input": "Give analyst Dana read-only access to the survey folder from March 5 through March 8.",
+      "reference_answer": "Could you please give analyst Dana read-only access to the survey folder from March 5 through March 8?",
+      "required_facts": [
+        "Analyst Dana",
+        "Read-only survey folder access",
+        "March 5 through March 8"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No new deadlines, tasks, promises, or follow-up questions beyond the request.",
+        "Do not reverse sender and recipient roles."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "rewrite_correction",
+      "category": "rewriting",
+      "instruction": "Rewrite this feedback respectfully in two sentences. Keep both corrections and do not ask for additional analysis.",
+      "input": "Your chart labels revenue as profit. The caption also says 2023, but the data is from 2024. Fix both.",
+      "reference_answer": "Please change the chart label from profit to revenue. Please also change the caption year from 2023 to 2024 to match the data.",
+      "required_facts": [
+        "Change profit label to revenue",
+        "Change 2023 caption to 2024",
+        "Request both corrections"
+      ],
+      "format_requirement": "Exactly two sentences, no heading.",
+      "prohibited_additions": [
+        "No new deadlines, tasks, promises, or follow-up questions beyond the request.",
+        "Do not reverse sender and recipient roles."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "rewrite_boundary",
+      "category": "rewriting",
+      "instruction": "Rewrite the boundary politely in two sentences, keeping the refusal and the offered channel for urgent issues.",
+      "input": "Do not call my personal number for routine updates. If there is a service outage, contact the on-call team.",
+      "reference_answer": "Please use a channel other than my personal number for routine updates. For a service outage, please contact the on-call team.",
+      "required_facts": [
+        "No personal-number calls for routine updates",
+        "Service outage goes to on-call team"
+      ],
+      "format_requirement": "Exactly two sentences, no heading.",
+      "prohibited_additions": [
+        "No new deadlines, tasks, promises, or follow-up questions beyond the request.",
+        "Do not reverse sender and recipient roles."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "rewrite_reschedule",
+      "category": "rewriting",
+      "instruction": "Turn this into one courteous request. Keep the existing appointment, requested replacement time, and request for confirmation.",
+      "input": "Move my equipment pickup from Wednesday at 11 a.m. to Thursday at 2 p.m. Confirm whether that change is possible.",
+      "reference_answer": "Could you please confirm whether my equipment pickup can move from Wednesday at 11 a.m. to Thursday at 2 p.m.?",
+      "required_facts": [
+        "Equipment pickup currently Wednesday 11 a.m.",
+        "Request Thursday 2 p.m.",
+        "Ask whether change is possible"
+      ],
+      "format_requirement": "Exactly one sentence, no heading.",
+      "prohibited_additions": [
+        "No new deadlines, tasks, promises, or follow-up questions beyond the request.",
+        "Do not reverse sender and recipient roles."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "extract_order",
+      "category": "extraction",
+      "instruction": "Extract order_id, customer, and quantity as a JSON object. Use an integer for quantity and return nothing else.",
+      "input": "Order T-582 belongs to Leena Park and contains 14 canvas pouches. Dispatch is scheduled for Thursday.",
+      "reference_answer": "{\"order_id\": \"T-582\", \"customer\": \"Leena Park\", \"quantity\": 14}",
+      "required_facts": [
+        "order_id = \"T-582\"",
+        "customer = \"Leena Park\"",
+        "quantity = 14"
+      ],
+      "format_requirement": "One valid JSON object with exactly the requested keys and value types; no Markdown fence or surrounding text.",
+      "prohibited_additions": [
+        "No extra fields or inferred values."
+      ],
+      "automated_check": {
+        "type": "json_object",
+        "expected": {
+          "order_id": "T-582",
+          "customer": "Leena Park",
+          "quantity": 14
+        }
+      }
+    },
+    {
+      "id": "extract_event",
+      "category": "extraction",
+      "instruction": "Return only a JSON object with keys event, date, and venue. Copy the date wording exactly.",
+      "input": "The Paper Circuits demonstration will take place on July 22 at Room C17. Visitors may arrive fifteen minutes early.",
+      "reference_answer": "{\"event\": \"Paper Circuits\", \"date\": \"July 22\", \"venue\": \"Room C17\"}",
+      "required_facts": [
+        "event = \"Paper Circuits\"",
+        "date = \"July 22\"",
+        "venue = \"Room C17\""
+      ],
+      "format_requirement": "One valid JSON object with exactly the requested keys and value types; no Markdown fence or surrounding text.",
+      "prohibited_additions": [
+        "No extra fields or inferred values."
+      ],
+      "automated_check": {
+        "type": "json_object",
+        "expected": {
+          "event": "Paper Circuits",
+          "date": "July 22",
+          "venue": "Room C17"
+        }
+      }
+    },
+    {
+      "id": "extract_unknown",
+      "category": "extraction",
+      "instruction": "Extract name, email, and phone as JSON. Use null for missing information; do not infer it.",
+      "input": "Contact person: Owen Vale. Email: owen.vale@example.com. No telephone number is provided.",
+      "reference_answer": "{\"name\": \"Owen Vale\", \"email\": \"owen.vale@example.com\", \"phone\": null}",
+      "required_facts": [
+        "name = \"Owen Vale\"",
+        "email = \"owen.vale@example.com\"",
+        "phone = null"
+      ],
+      "format_requirement": "One valid JSON object with exactly the requested keys and value types; no Markdown fence or surrounding text.",
+      "prohibited_additions": [
+        "No extra fields or inferred values."
+      ],
+      "automated_check": {
+        "type": "json_object",
+        "expected": {
+          "name": "Owen Vale",
+          "email": "owen.vale@example.com",
+          "phone": null
+        }
+      }
+    },
+    {
+      "id": "extract_inventory",
+      "category": "extraction",
+      "instruction": "Return only a JSON object with integer fields available and reserved and a string field item.",
+      "input": "For item blue binder, the stock sheet lists 37 available and 12 reserved. The next delivery has not been scheduled.",
+      "reference_answer": "{\"available\": 37, \"reserved\": 12, \"item\": \"blue binder\"}",
+      "required_facts": [
+        "available = 37",
+        "reserved = 12",
+        "item = \"blue binder\""
+      ],
+      "format_requirement": "One valid JSON object with exactly the requested keys and value types; no Markdown fence or surrounding text.",
+      "prohibited_additions": [
+        "No extra fields or inferred values."
+      ],
+      "automated_check": {
+        "type": "json_object",
+        "expected": {
+          "available": 37,
+          "reserved": 12,
+          "item": "blue binder"
+        }
+      }
+    },
+    {
+      "id": "extract_deadlines",
+      "category": "extraction",
+      "instruction": "Extract draft_due and final_due into a JSON object. Preserve the date strings and add no other keys.",
+      "input": "The draft is due December 6. Review comments arrive December 9, and the final version is due December 13.",
+      "reference_answer": "{\"draft_due\": \"December 6\", \"final_due\": \"December 13\"}",
+      "required_facts": [
+        "draft_due = \"December 6\"",
+        "final_due = \"December 13\""
+      ],
+      "format_requirement": "One valid JSON object with exactly the requested keys and value types; no Markdown fence or surrounding text.",
+      "prohibited_additions": [
+        "No extra fields or inferred values."
+      ],
+      "automated_check": {
+        "type": "json_object",
+        "expected": {
+          "draft_due": "December 6",
+          "final_due": "December 13"
+        }
+      }
+    },
+    {
+      "id": "extract_boolean",
+      "category": "extraction",
+      "instruction": "Return only JSON with fields device, inspection_passed, and battery_replaced. Use JSON booleans for the last two fields.",
+      "input": "Device R-63 passed inspection. Its battery was tested but was not replaced.",
+      "reference_answer": "{\"device\": \"R-63\", \"inspection_passed\": true, \"battery_replaced\": false}",
+      "required_facts": [
+        "device = \"R-63\"",
+        "inspection_passed = true",
+        "battery_replaced = false"
+      ],
+      "format_requirement": "One valid JSON object with exactly the requested keys and value types; no Markdown fence or surrounding text.",
+      "prohibited_additions": [
+        "No extra fields or inferred values."
+      ],
+      "automated_check": {
+        "type": "json_object",
+        "expected": {
+          "device": "R-63",
+          "inspection_passed": true,
+          "battery_replaced": false
+        }
+      }
+    },
+    {
+      "id": "extract_amount",
+      "category": "extraction",
+      "instruction": "Extract currency, subtotal, and shipping as JSON. Use numbers for monetary amounts and omit the total.",
+      "input": "The receipt is in EUR. The subtotal is 46.5 and shipping is 3.5, making the total 50.",
+      "reference_answer": "{\"currency\": \"EUR\", \"subtotal\": 46.5, \"shipping\": 3.5}",
+      "required_facts": [
+        "currency = \"EUR\"",
+        "subtotal = 46.5",
+        "shipping = 3.5"
+      ],
+      "format_requirement": "One valid JSON object with exactly the requested keys and value types; no Markdown fence or surrounding text.",
+      "prohibited_additions": [
+        "No extra fields or inferred values."
+      ],
+      "automated_check": {
+        "type": "json_object",
+        "expected": {
+          "currency": "EUR",
+          "subtotal": 46.5,
+          "shipping": 3.5
+        }
+      }
+    },
+    {
+      "id": "extract_people",
+      "category": "extraction",
+      "instruction": "Return only JSON with keys facilitator and note_taker. Do not confuse either role with the observer.",
+      "input": "Sana Holt will facilitate. Ravi Cole will take notes. Inez Shaw is attending as an observer.",
+      "reference_answer": "{\"facilitator\": \"Sana Holt\", \"note_taker\": \"Ravi Cole\"}",
+      "required_facts": [
+        "facilitator = \"Sana Holt\"",
+        "note_taker = \"Ravi Cole\""
+      ],
+      "format_requirement": "One valid JSON object with exactly the requested keys and value types; no Markdown fence or surrounding text.",
+      "prohibited_additions": [
+        "No extra fields or inferred values."
+      ],
+      "automated_check": {
+        "type": "json_object",
+        "expected": {
+          "facilitator": "Sana Holt",
+          "note_taker": "Ravi Cole"
+        }
+      }
+    },
+    {
+      "id": "format_bullets",
+      "category": "format_following",
+      "instruction": "Return the supplied labels as exactly four bullet lines, in order. Start each line with a hyphen followed by one space. Add no other text.",
+      "input": "intake; sorting; repair; dispatch",
+      "reference_answer": "- intake\n- sorting\n- repair\n- dispatch",
+      "required_facts": [
+        "Preserve the requested labels and apply the specified ordering or filtering."
+      ],
+      "format_requirement": "Output must match the specified lines exactly, allowing outer whitespace and platform newline differences.",
+      "prohibited_additions": [
+        "No introduction, explanation, code fence, or extra lines."
+      ],
+      "automated_check": {
+        "type": "exact_lines",
+        "expected": [
+          "- intake",
+          "- sorting",
+          "- repair",
+          "- dispatch"
+        ]
+      }
+    },
+    {
+      "id": "format_uppercase",
+      "category": "format_following",
+      "instruction": "Return each supplied code in uppercase on its own line, preserving order. Do not number the lines or add commentary.",
+      "input": "ab-17, cd-28, ef-39",
+      "reference_answer": "AB-17\nCD-28\nEF-39",
+      "required_facts": [
+        "Preserve the requested labels and apply the specified ordering or filtering."
+      ],
+      "format_requirement": "Output must match the specified lines exactly, allowing outer whitespace and platform newline differences.",
+      "prohibited_additions": [
+        "No introduction, explanation, code fence, or extra lines."
+      ],
+      "automated_check": {
+        "type": "exact_lines",
+        "expected": [
+          "AB-17",
+          "CD-28",
+          "EF-39"
+        ]
+      }
+    },
+    {
+      "id": "format_csv",
+      "category": "format_following",
+      "instruction": "Return exactly two CSV lines: the header name,score and then the record. Do not use a code fence or spaces around commas.",
+      "input": "Name: Talia. Score: 86.",
+      "reference_answer": "name,score\nTalia,86",
+      "required_facts": [
+        "Preserve the requested labels and apply the specified ordering or filtering."
+      ],
+      "format_requirement": "Output must match the specified lines exactly, allowing outer whitespace and platform newline differences.",
+      "prohibited_additions": [
+        "No introduction, explanation, code fence, or extra lines."
+      ],
+      "automated_check": {
+        "type": "exact_lines",
+        "expected": [
+          "name,score",
+          "Talia,86"
+        ]
+      }
+    },
+    {
+      "id": "format_pairs",
+      "category": "format_following",
+      "instruction": "Write exactly three lines in the form key=value, ordered as city, mode, seats. Preserve the provided spelling and add no spaces around the equals sign.",
+      "input": "seats: 4; city: Bergen; mode: tram",
+      "reference_answer": "city=Bergen\nmode=tram\nseats=4",
+      "required_facts": [
+        "Preserve the requested labels and apply the specified ordering or filtering."
+      ],
+      "format_requirement": "Output must match the specified lines exactly, allowing outer whitespace and platform newline differences.",
+      "prohibited_additions": [
+        "No introduction, explanation, code fence, or extra lines."
+      ],
+      "automated_check": {
+        "type": "exact_lines",
+        "expected": [
+          "city=Bergen",
+          "mode=tram",
+          "seats=4"
+        ]
+      }
+    },
+    {
+      "id": "format_sort",
+      "category": "format_following",
+      "instruction": "Sort these lowercase words alphabetically and return them separated by a comma and one space on a single line. Add no other text.",
+      "input": "otter, badger, heron, fox",
+      "reference_answer": "badger, fox, heron, otter",
+      "required_facts": [
+        "Preserve the requested labels and apply the specified ordering or filtering."
+      ],
+      "format_requirement": "Output must match the specified lines exactly, allowing outer whitespace and platform newline differences.",
+      "prohibited_additions": [
+        "No introduction, explanation, code fence, or extra lines."
+      ],
+      "automated_check": {
+        "type": "exact_lines",
+        "expected": [
+          "badger, fox, heron, otter"
+        ]
+      }
+    },
+    {
+      "id": "format_number",
+      "category": "format_following",
+      "instruction": "Number the supplied phases starting at 0. Return one phase per line using the form 0: phase, and preserve their order.",
+      "input": "discover; build; verify",
+      "reference_answer": "0: discover\n1: build\n2: verify",
+      "required_facts": [
+        "Preserve the requested labels and apply the specified ordering or filtering."
+      ],
+      "format_requirement": "Output must match the specified lines exactly, allowing outer whitespace and platform newline differences.",
+      "prohibited_additions": [
+        "No introduction, explanation, code fence, or extra lines."
+      ],
+      "automated_check": {
+        "type": "exact_lines",
+        "expected": [
+          "0: discover",
+          "1: build",
+          "2: verify"
+        ]
+      }
+    },
+    {
+      "id": "format_select",
+      "category": "format_following",
+      "instruction": "Return only the labels marked KEEP, in their original order, one per line. Do not include the KEEP marker.",
+      "input": "KEEP amber\nDROP silver\nKEEP indigo\nDROP copper\nKEEP ivory",
+      "reference_answer": "amber\nindigo\nivory",
+      "required_facts": [
+        "Preserve the requested labels and apply the specified ordering or filtering."
+      ],
+      "format_requirement": "Output must match the specified lines exactly, allowing outer whitespace and platform newline differences.",
+      "prohibited_additions": [
+        "No introduction, explanation, code fence, or extra lines."
+      ],
+      "automated_check": {
+        "type": "exact_lines",
+        "expected": [
+          "amber",
+          "indigo",
+          "ivory"
+        ]
+      }
+    },
+    {
+      "id": "format_wrap",
+      "category": "format_following",
+      "instruction": "Put each supplied tag inside square brackets and concatenate the results on one line, without spaces or other text.",
+      "input": "oak, pine, elm",
+      "reference_answer": "[oak][pine][elm]",
+      "required_facts": [
+        "Preserve the requested labels and apply the specified ordering or filtering."
+      ],
+      "format_requirement": "Output must match the specified lines exactly, allowing outer whitespace and platform newline differences.",
+      "prohibited_additions": [
+        "No introduction, explanation, code fence, or extra lines."
+      ],
+      "automated_check": {
+        "type": "exact_lines",
+        "expected": [
+          "[oak][pine][elm]"
+        ]
+      }
+    },
+    {
+      "id": "reason_stock",
+      "category": "reasoning",
+      "instruction": "Answer in one sentence and include the calculation.",
+      "input": "A kiosk begins with 47 postcards, sells 18, and then receives 9 more. How many postcards does it have?",
+      "reference_answer": "The kiosk has 38 postcards because 47 - 18 + 9 = 38.",
+      "required_facts": [
+        "38 postcards",
+        "47 - 18 + 9"
+      ],
+      "format_requirement": "Exactly one sentence containing the answer and a brief calculation or justification.",
+      "prohibited_additions": [
+        "No unstated assumptions, extra costs, invented facts, or contradictory alternate answers."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "reason_boxes",
+      "category": "reasoning",
+      "instruction": "Answer in one sentence and explain whether an extra box is needed.",
+      "input": "There are 53 tiles to pack, and each box holds at most 8 tiles. What is the minimum number of boxes required?",
+      "reference_answer": "Seven boxes are required because six hold only 48 tiles, so the remaining five need an extra box.",
+      "required_facts": [
+        "7 boxes",
+        "6 boxes hold 48; 5 tiles remain"
+      ],
+      "format_requirement": "Exactly one sentence containing the answer and a brief calculation or justification.",
+      "prohibited_additions": [
+        "No unstated assumptions, extra costs, invented facts, or contradictory alternate answers."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "reason_time",
+      "category": "reasoning",
+      "instruction": "Give the finishing time in one sentence and show how you determined it.",
+      "input": "A maintenance check starts at 09:35 and lasts 55 minutes, followed immediately by a 20-minute calibration. When does calibration finish?",
+      "reference_answer": "Calibration finishes at 10:50 because 09:35 plus 55 minutes is 10:30, then another 20 minutes gives 10:50.",
+      "required_facts": [
+        "10:50",
+        "55 + 20 = 75 minutes, or equivalent sequential calculation"
+      ],
+      "format_requirement": "Exactly one sentence containing the answer and a brief calculation or justification.",
+      "prohibited_additions": [
+        "No unstated assumptions, extra costs, invented facts, or contradictory alternate answers."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "reason_discount",
+      "category": "reasoning",
+      "instruction": "Answer in one sentence with the final price and the calculation.",
+      "input": "A lamp costs 80 dollars. A 15 percent discount is applied, then a 6-dollar delivery charge is added. What is the total cost?",
+      "reference_answer": "The total is 74 dollars because 80 times 0.85 plus 6 equals 74.",
+      "required_facts": [
+        "74 dollars",
+        "Discount removes 12 dollars before adding 6"
+      ],
+      "format_requirement": "Exactly one sentence containing the answer and a brief calculation or justification.",
+      "prohibited_additions": [
+        "No unstated assumptions, extra costs, invented facts, or contradictory alternate answers."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "reason_order",
+      "category": "reasoning",
+      "instruction": "State the full order in one sentence and briefly justify it.",
+      "input": "Four crates are placed in a row. Crate P is before Q, Q is before R, and R is before S. What is the order from first to last?",
+      "reference_answer": "The order is P, Q, R, S because each stated before relationship fixes the next position.",
+      "required_facts": [
+        "P, Q, R, S",
+        "Order follows all three before relationships"
+      ],
+      "format_requirement": "Exactly one sentence containing the answer and a brief calculation or justification.",
+      "prohibited_additions": [
+        "No unstated assumptions, extra costs, invented facts, or contradictory alternate answers."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "reason_balance",
+      "category": "reasoning",
+      "instruction": "Answer in one sentence and show the arithmetic.",
+      "input": "A shared fund has 125 dollars. Five people each add 7 dollars, and 48 dollars is then spent on supplies. How much remains?",
+      "reference_answer": "The fund has 112 dollars remaining because 125 + 5 times 7 - 48 = 112.",
+      "required_facts": [
+        "112 dollars",
+        "125 + 35 - 48"
+      ],
+      "format_requirement": "Exactly one sentence containing the answer and a brief calculation or justification.",
+      "prohibited_additions": [
+        "No unstated assumptions, extra costs, invented facts, or contradictory alternate answers."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "reason_rate",
+      "category": "reasoning",
+      "instruction": "Answer in one sentence with a brief calculation. Assume the printing rate stays constant.",
+      "input": "A printer makes 24 labels in 3 minutes. How many labels can it make in 7 minutes?",
+      "reference_answer": "It can make 56 labels because 24 divided by 3 is 8 labels per minute, and 8 times 7 is 56.",
+      "required_facts": [
+        "56 labels",
+        "8 labels per minute times 7"
+      ],
+      "format_requirement": "Exactly one sentence containing the answer and a brief calculation or justification.",
+      "prohibited_additions": [
+        "No unstated assumptions, extra costs, invented facts, or contradictory alternate answers."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    },
+    {
+      "id": "reason_logic",
+      "category": "reasoning",
+      "instruction": "Answer yes or no in one sentence and justify it using only the given statements.",
+      "input": "Every parcel in bin A has a green sticker. Parcel Z has a green sticker. Must parcel Z be in bin A?",
+      "reference_answer": "No, because the statements do not rule out green-sticker parcels in other bins.",
+      "required_facts": [
+        "No; membership in A is not established",
+        "Green sticker does not imply membership in A"
+      ],
+      "format_requirement": "Exactly one sentence containing the answer and a brief calculation or justification.",
+      "prohibited_additions": [
+        "No unstated assumptions, extra costs, invented facts, or contradictory alternate answers."
+      ],
+      "automated_check": {
+        "type": "human_only"
+      }
+    }
+  ]
+}

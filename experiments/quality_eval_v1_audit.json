@@ -1,0 +1,84 @@
+{
+  "evaluation_id": "quality_eval_v1",
+  "prompt_set_sha256": "c6d0fce2304cc0fe576af3c78d4bcd266a27b9e1a1c2bfce468a35f55b0a06ec",
+  "hash_method": "SHA-256 of sorted-key UTF-8 canonical JSON; independent of file newline style",
+  "category_counts": {
+    "summarization": 8,
+    "rewriting": 8,
+    "extraction": 8,
+    "format_following": 8,
+    "reasoning": 8
+  },
+  "sources": {
+    "dataset_name": "yahma/alpaca-cleaned",
+    "local_split": "alpaca_seed42_train2000_val200",
+    "counts": {
+      "train": 2000,
+      "validation": 200,
+      "development": 6
+    },
+    "split_sha256": {
+      "train": "1c7052b9f42e501642fe02ebb222f11b7064e259eb72088a4ffae9e1fb46f52f",
+      "validation": "278310b075e4f91e5c81249506cd1f01aeac22fad12b18bc73474637d473cd8b"
+    },
+    "development_prompts_sha256": "175a0efe79de1a7861ed2c25162c9bdeecbe69ee407844d53ae33b0a79397b7c"
+  },
+  "overlap_method": {
+    "normalization": "Unicode NFKC, casefold, word characters; punctuation and whitespace ignored",
+    "fields": [
+      "instruction + input",
+      "input when >= 40 normalized characters"
+    ],
+    "near_match": "word-trigram Jaccard >= 0.35 AND >= 8 shared trigrams"
+  },
+  "matches": [],
+  "status": "no_lexical_matches",
+  "input_token_lengths": {
+    "sum_workshop": 71,
+    "sum_deliveries": 76,
+    "sum_membership": 66,
+    "sum_water": 74,
+    "sum_bus": 74,
+    "sum_upload": 63,
+    "sum_exhibit": 75,
+    "sum_mentoring": 68,
+    "rewrite_invoice": 54,
+    "rewrite_decline": 60,
+    "rewrite_status": 55,
+    "rewrite_refund": 51,
+    "rewrite_access": 49,
+    "rewrite_correction": 60,
+    "rewrite_boundary": 52,
+    "rewrite_reschedule": 58,
+    "extract_order": 58,
+    "extract_event": 55,
+    "extract_unknown": 51,
+    "extract_inventory": 53,
+    "extract_deadlines": 56,
+    "extract_boolean": 51,
+    "extract_amount": 58,
+    "extract_people": 52,
+    "format_bullets": 48,
+    "format_uppercase": 47,
+    "format_csv": 47,
+    "format_pairs": 54,
+    "format_sort": 46,
+    "format_number": 42,
+    "format_select": 48,
+    "format_wrap": 37,
+    "reason_stock": 49,
+    "reason_boxes": 50,
+    "reason_time": 56,
+    "reason_discount": 54,
+    "reason_order": 55,
+    "reason_balance": 51,
+    "reason_rate": 48,
+    "reason_logic": 50
+  },
+  "limitations": [
+    "Lexical heuristics do not exclude semantic overlap or paraphrases.",
+    "Only the selected 2200 Alpaca rows and local development prompts were checked.",
+    "Unknown pretraining data and the remainder of Alpaca were not checked.",
+    "References were authored with prompts and require human review; no target-model outputs have been scored."
+  ]
+}

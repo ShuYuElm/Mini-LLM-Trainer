@@ -6,3 +6,7 @@
 # Keep portable evidence bytes intact: manifest.json hashes these JSON files.
 experiments/results/runs/**/*.json -text
 experiments/results/*.csv -text
+
+# Preserve archive bytes and recognize their Windows CRLF line endings.
+experiments/quality_eval_v1/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+experiments/quality_eval_v1/*.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

@@ -13,6 +13,7 @@
   真实 Qwen 的固定提示词末 token logits 对齐。
 - r=4/8/16/32 的单 seed 对照实验，全序列与 answer-only 两种验证口径。
 - 训练 JSON 配置、配置校验和评估命令行参数。
+- 40 题独立质量评估：三模型批量生成、评分手册与匿名导出、确定性格式检查、评分回填工具。
 
 ```mermaid
 flowchart LR
@@ -184,6 +185,58 @@ r=32 的摘要补全了开始日期，但礼貌改写仍有额外发挥。
 绘图使用已加入依赖的 matplotlib 3.10.7。
 [结果说明](experiments/results/README.md) 包含来源哈希、路径转换规则和仅用报告副本重建的命令。
 
+## 独立回答质量评估
+
+已建立 [40 题评估集](configs/quality_eval_v1.json)，涵盖摘要、改写、提取、格式和推理，
+每类 8 题；参考答案及四维评分标准已提前记录。与 2,200 条本地训练/验证数据和
+原 6 题比较，未发现满足既定规则的词面重复，推理输入为 37–76 tokens。
+这不排除语义重合或预训练语料中的出现。
+
+```powershell
+.\.venv\Scripts\python.exe audit_quality_eval.py --check-tokenizer
+.\.venv\Scripts\python.exe generate_quality_eval.py --adapter checkpoint/lora_r8_seed42_baseline_v1/adapter_epoch_1.pt --adapter checkpoint/lora_r32_seed42_baseline_v1/adapter_epoch_1.pt
+```
+
+生成入口只把每题的 `instruction` 和 `input` 送入模型，三组使用相同的 greedy 设置
+（输入上限 256、最多 128 个新 token），顺序加载 base 与各 adapter，并在每组结束后
+释放模型。2026-09-21 实际运行 3 组 × 40 题共 120 条回答，无空回答；仅生成耗时
+139.7 / 127.6 / 119.2 秒，不含模型加载。
+
+产物写入 `experiments/quality_eval_v1/`：[生成报告](experiments/quality_eval_v1/quality_generation.json)
+保存全部回答、adapter 标识、生成参数和题集哈希；[评分手册](experiments/quality_eval_v1/quality_review_workbook.md)
+把 40 题排成可直接填分的 Markdown，匿名评分文件把每题三个回答随机排成 A/B/C，
+[映射文件](experiments/quality_eval_v1/quality_review_mapping.json) 单独保存，
+[评分表](experiments/quality_eval_v1/quality_review_scores.json) 已保存 120 条四维 0/1/2 评分与理由。
+`--from-report` 可不加载模型重新导出这些文件，已核对输出与首次导出逐字节一致。
+
+评分时只打开评分手册，把每行 `A: _ _ _ _ |` 填成四个 0/1/2 和一句理由，再回填：
+
+```powershell
+.\.venv\Scripts\python.exe import_quality_scores.py
+```
+
+回填工具会校验题集哈希、候选齐全、分值范围与理由非空，任何不合格都不写入文件；
+它不读取映射文件，盲评不会被破坏。自动格式检查只覆盖 16 道有确定目标的题：
+JSON 对象 8/24 通过（base 0/8、r=8 4/8、r=32 4/8），固定行 6/24 通过（各组 2/8）。
+这些数字只反映指定的格式属性，不能当作回答质量结论。
+
+2026-09-24 已导入用户完成的 120 条匿名评分并揭示模型映射。每维 0–2 分，
+四维等权总分满分 8 分，均值为 **Base 4.975、r=8 5.500、r=32 5.825**。
+LoRA 的改善主要出现在提取、格式遵循和改写；摘要总分下降，r=8 推理也有所下降。
+r=8 与 r=32 有 31/40 题总分相同。结论仅适用于这 40 题与一名评分者，不能据此
+证明通用能力、统计显著性或普遍的 rank 优势。
+
+查看 [分维度与类别汇总](experiments/quality_eval_v1/quality_score_summary.md)、
+[逐题评分理由](experiments/quality_eval_v1/quality_score_details.csv) 和
+[结果分析](experiments/quality_eval_v1.md)。从评分文件重新汇总无需加载模型：
+
+```powershell
+.\.venv\Scripts\python.exe summarize_quality_scores.py
+```
+
+[质量评估归档索引](experiments/quality_eval_v1/README.md) 列出了全部回答、原始手册、
+评分、映射和汇总文件，并说明如何只用这些文件复核结果。
+
 ## 版本管理范围
 
 本地 Git 仓库使用 `main` 分支，纳入代码、测试、配置、文档和
@@ -200,7 +253,7 @@ git log -1 --oneline
 
 ## 验证范围与待完成项
 
-- 2026-09-21：完整测试套件 **221 个通过**，耗时 7.48 秒；本轮新增结果汇总回归测试 19 个。
+- 2026-09-24：发布前完整测试套件 **310 个通过**，耗时 10.08 秒；本轮新增评分汇总测试 16 个。
 - 历史四组训练和两种评估已实际运行并核对 adapter/full checkpoint 一致性。
 - CLI/JSON 配置迁移后，新训练及恢复流程使用替身验证；尚未重跑真实训练。
 - 本次依赖版本已与本地环境核对；尚未验证全新环境安装与完整复现。
@@ -208,7 +261,7 @@ git log -1 --oneline
 - answer-only 测试已覆盖首个回答 token、EOS、跨边界 token、截断、padding 与验证 loss 联合计算；使用离线 offset tokenizer。
 - 训练/恢复及 smoke 成功流程已加入 CLI 回归测试：使用微型 CPU 模型，执行真实 LoRA 注入、优化器构造和临时文件保存；epoch 执行、调度器和恢复加载使用替身，底层训练与 checkpoint 行为由独立测试覆盖。
 - 评估适配器测试已覆盖基础模型不匹配时提前拒绝，以及保存的 rank、alpha 和权重正确加载。
-- 结果归档、图表和本地 Git 整理已完成；更广的回答质量评估、模型/数据 revision 固定仍待完成。
+- 结果归档、图表和 Git 整理已完成；40 题质量评估的生成、人工评分及结果汇总已完成。全新环境复现、模型/数据 revision 固定和可选的独立评分者复核仍待完成。
 - adapter 加载检查参数名和形状；通用的目标模型身份/缩放校验仍有改进空间。
   训练入口的诊断探针依赖 q_proj，目标层配置尚不是任意层的通用接口。
 - PEFT 对照仅证明已测试范围内的一致性，不代表完整 Qwen 训练等价。

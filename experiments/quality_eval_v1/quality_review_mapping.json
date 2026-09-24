@@ -1,0 +1,208 @@
+{
+  "evaluation_id": "quality_eval_v1",
+  "prompt_set_sha256": "c6d0fce2304cc0fe576af3c78d4bcd266a27b9e1a1c2bfce468a35f55b0a06ec",
+  "review_seed": 20260921,
+  "instructions": "Keep this mapping away from the scoring file until every score is recorded.",
+  "labels": {
+    "sum_workshop": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "sum_deliveries": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "sum_membership": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "base"
+    },
+    "sum_water": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "base"
+    },
+    "sum_bus": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "base"
+    },
+    "sum_upload": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "sum_exhibit": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "base"
+    },
+    "sum_mentoring": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "base"
+    },
+    "rewrite_invoice": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "rewrite_decline": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "base"
+    },
+    "rewrite_status": {
+      "A": "base",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "rewrite_refund": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "rewrite_access": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "rewrite_correction": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "base"
+    },
+    "rewrite_boundary": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "rewrite_reschedule": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "extract_order": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "base"
+    },
+    "extract_event": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "base"
+    },
+    "extract_unknown": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "extract_inventory": {
+      "A": "base",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "extract_deadlines": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "extract_boolean": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "extract_amount": {
+      "A": "base",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "extract_people": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "format_bullets": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "format_uppercase": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "format_csv": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "format_pairs": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "format_sort": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "format_number": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "base"
+    },
+    "format_select": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "format_wrap": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "reason_stock": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "reason_boxes": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "reason_time": {
+      "A": "lora_r32_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "reason_discount": {
+      "A": "lora_r8_seed42_baseline_v1",
+      "B": "base",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "reason_order": {
+      "A": "base",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "reason_balance": {
+      "A": "base",
+      "B": "lora_r8_seed42_baseline_v1",
+      "C": "lora_r32_seed42_baseline_v1"
+    },
+    "reason_rate": {
+      "A": "base",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "lora_r8_seed42_baseline_v1"
+    },
+    "reason_logic": {
+      "A": "base",
+      "B": "lora_r32_seed42_baseline_v1",
+      "C": "lora_r8_seed42_baseline_v1"
+    }
+  }
+}
